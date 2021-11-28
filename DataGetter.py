@@ -1,5 +1,5 @@
 import os,DataImporter
-from PIL import Image
+import matplotlib.pyplot as plt
 
 class Importer:
   path = ""
@@ -12,36 +12,27 @@ class Importer:
 
   def getRealTrain(self):
     path = os.path.join(self.path, "train", "real")
-    image_list = []
-    for f in os.listdir(path):
-      im=Image.open(os.path.join(path,f))
-      image_list.append(im)
-      #im.close()
-    return image_list
+    return self.loadImagesFromPath(path)
 
   def getFakeTrain(self):
     path = os.path.join(self.path, "train", "fake")
-    image_list = []
-    for f in os.listdir(path):
-      im=Image.open(os.path.join(path,f))
-      image_list.append(im)
-      #im.close()
-    return image_list
+    return self.loadImagesFromPath(path)
 
   def getFakeTest(self):
     path = os.path.join(self.path, "test", "fake")
-    image_list = []
-    for f in os.listdir(path):
-      im=Image.open(os.path.join(path,f))
-      image_list.append(im)
-      im.close()
-    return image_list
+    return self.loadImagesFromPath(path)
 
-  def getRealTrain(self):
+  def getRealTest(self):
     path = os.path.join(self.path, "test", "real")
+    return self.loadImagesFromPath(path)
+
+  def loadImagesFromPath(self, path):
     image_list = []
+    i = 0
     for f in os.listdir(path):
-      im=Image.open(os.path.join(path,f))
-      image_list.append(im)
-      im.close()
+      if(i < 5000):
+        im=plt.imread(os.path.join(path,f))
+        pixels = im.reshape( im.shape[0]*im.shape[1], im.shape[2] )
+        image_list.append(pixels)
+      i = i + 1
     return image_list
