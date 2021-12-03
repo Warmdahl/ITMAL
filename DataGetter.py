@@ -32,7 +32,7 @@ class Importer:
     for f in os.listdir(path):
       if(i < 5000):
         im=plt.imread(os.path.join(path,f))
-        pixels = im.reshape( im.shape[0]*im.shape[1], im.shape[2] )
+        pixels = im.reshape( im.shape[0], im.shape[1], im.shape[2] )
         image_list.append(pixels)
       i = i + 1
     return image_list
